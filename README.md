@@ -1,6 +1,6 @@
 # AI PM Lab
 
-Goal: help Asif transition from Product Manager to AI Product Manager by building real LLM products in small, shippable slices.
+Goal: Build a AI PM product in small, shippable slices.
 
 ## Current MVP Idea
 **Insight2Spec** — Convert raw user feedback (tickets, reviews, support chats) into:
