@@ -46,3 +46,19 @@ Add one entry per nightly run.
   - Sanity check command `pytest -q` is currently blocked in this environment (`pytest: command not found`) until dependencies are installed.
   - Wrapper currently returns raw completion JSON; response normalization is not implemented yet.
 - Next step: Add first `/analyze` endpoint with deterministic mock + response schema, then swap in OpenRouter behind the same contract.
+
+- Date: 2026-02-18
+- Built: Implemented first `/analyze` endpoint with explicit request/response schema and deterministic mock analysis logic, plus endpoint tests.
+- Why this step: It was the top-priority item in `NEXT_STEPS.md` and creates a stable API contract Asif can build UI/client code against before real LLM wiring.
+- Key technical concepts:
+  - Pydantic request/response contracts (`AnalyzeRequest`, `AnalyzeResponse`) for predictable API behavior.
+  - Deterministic mock generation via keyword-based theme detection so outputs are testable and reproducible.
+  - Contract-first endpoint development to decouple product/API design from model integration timing.
+  - Validation guardrails (`feedback` list must contain at least one item).
+- Files changed:
+  - `app/main.py`
+  - `tests/test_analyze.py`
+- Risks/limitations:
+  - `/analyze` is still mock-only; it does not call OpenRouter yet.
+  - `pytest -q` remains unavailable in this environment (`pytest: command not found`), so sanity check used `python3 -m compileall app tests`.
+- Next step: Wire dependency installation + a one-command smoke test (`make smoke`) so tests can run reliably in nightly jobs.

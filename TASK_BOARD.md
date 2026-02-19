@@ -1,6 +1,6 @@
 # AI PM Task Board
 
-Last updated: 2026-02-19 (UTC)
+Last updated: 2026-02-19 07:45 UTC
 
 ## Legend
 - **Status:** Backlog | In Progress | Blocked | Done
@@ -13,6 +13,8 @@ Last updated: 2026-02-19 (UTC)
 | T-002 | Add dependency install + one-command smoke test | In Progress | Claw | P0 | `pytest` missing in runtime; add repeatable `make smoke`/script |
 | T-003 | Wire `/analyze` from mock to OpenRouter client | In Progress | Claw | P0 | Keep same request/response contract |
 | T-004 | Complete daily AI PM sprint artifact (today) | In Progress | Asif | P0 | File: `AI-PM-Sprint-Day-<date>-feature-brief-generator.md` |
+| T-018 | Mission Control: wire Clerk auth + Convex backend | In Progress | Claw | P0 | Core wiring implemented; pending env keys + Convex bootstrap run |
+| T-019 | Mission Control: publish repo + testing instructions | In Progress | Claw | P1 | Repo pushed; final user test walkthrough pending |
 
 ## Backlog
 | ID | Task | Status | Assignee | Priority | Notes |
@@ -38,6 +40,8 @@ Last updated: 2026-02-19 (UTC)
 | T-015 | Create and publish `requirements.md` | Done | Claw | P0 | Pushed to `main` |
 | T-016 | Create public GitHub repo for AI PM Lab | Done | Claw | P0 | https://github.com/as1fansar1/ai-pm-lab |
 | T-017 | Configure daily sprint + nightly build cron routines | Done | Claw | P0 | Morning/evening accountability loops active |
+| T-020 | Mission Control repo scaffolded and pushed | Done | Claw | P0 | https://github.com/as1fansar1/mission-control |
+| T-021 | Resolve ENOSPC blocker on host | Done | Claw | P0 | Freed ~1.7GB; installs resumed |
 
 ## Operating Rules (from now on)
 1. Any new task is added here immediately with owner + status.
