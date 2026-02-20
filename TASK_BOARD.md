@@ -1,6 +1,6 @@
 # AI PM Task Board
 
-Last updated: 2026-02-19 07:45 UTC
+Last updated: 2026-02-20 05:06 UTC
 
 ## Legend
 - **Status:** Backlog | In Progress | Blocked | Done
@@ -15,6 +15,7 @@ Last updated: 2026-02-19 07:45 UTC
 | T-004 | Complete daily AI PM sprint artifact (today) | In Progress | Asif | P0 | File: `AI-PM-Sprint-Day-<date>-feature-brief-generator.md` |
 | T-018 | Mission Control: wire Clerk auth + Convex backend | In Progress | Claw | P0 | Core wiring implemented; pending env keys + Convex bootstrap run |
 | T-019 | Mission Control: publish repo + testing instructions | In Progress | Claw | P1 | Repo pushed; final user test walkthrough pending |
+| T-022 | Complete Google Calendar integration (`gog`) | In Progress | Asif + Claw | P1 | `gog` fixed/installed; waiting for interactive auth completion from Asif |
 
 ## Backlog
 | ID | Task | Status | Assignee | Priority | Notes |
@@ -42,6 +43,11 @@ Last updated: 2026-02-19 07:45 UTC
 | T-017 | Configure daily sprint + nightly build cron routines | Done | Claw | P0 | Morning/evening accountability loops active |
 | T-020 | Mission Control repo scaffolded and pushed | Done | Claw | P0 | https://github.com/as1fansar1/mission-control |
 | T-021 | Resolve ENOSPC blocker on host | Done | Claw | P0 | Freed ~1.7GB; installs resumed |
+| T-023 | Create AI Business Workflows weekday folder structure | Done | Claw | P0 | Added Monday–Sunday folders and committed placeholders |
+| T-024 | Add Thursday Sales workflow report (`2026-02-20.md`) | Done | Claw | P0 | Added and pushed with source links + confidence notes |
+| T-025 | Add Friday Ops/Support workflow report (`2026-02-20.md`) | Done | Claw | P0 | Added and pushed with source links + KPI pilot |
+| T-026 | Add `WEBMCP-PLAYBOOK.md` | Done | Claw | P1 | Added guardrails, safety modes, and adoption plan |
+| T-027 | Install mem0 plugin (`@mem0/openclaw-mem0`) | Done | Claw | P1 | Installed plugin and switched memory slot to mem0 |
 
 ## Operating Rules (from now on)
 1. Any new task is added here immediately with owner + status.
