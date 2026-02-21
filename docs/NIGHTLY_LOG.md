@@ -97,3 +97,23 @@ Add one entry per nightly run.
   - Full pytest run remains blocked in this environment due to missing pytest binary/pip bootstrap in `.venv`; sanity check used `python3 -m compileall app tests`.
   - Parser currently extracts assistant text only; it does not normalize tool calls or metadata.
 - Next step: Connect `/analyze` to OpenRouter behind the existing response contract, with mock fallback for local/dev mode.
+
+- Date: 2026-02-21
+- Built: Wired `/analyze` to OpenRouter behind a mode flag (`INSIGHT2SPEC_ANALYZE_MODE=openrouter`) while preserving the existing response schema and adding automatic mock fallback on provider/config/parser failures.
+- Why this step: It was the highest-priority item in `NEXT_STEPS.md` and unlocks first end-to-end LLM integration without breaking frontend/client contracts.
+- Key technical concepts:
+  - Contract-preserving integration: keep `AnalyzeResponse` stable while swapping summary generation source.
+  - Feature flag pattern for local/dev safety (`mock` default, `openrouter` opt-in).
+  - Graceful degradation: catch OpenRouter + parse errors and return deterministic mock analysis.
+  - Isolation testing with monkeypatching to simulate provider success/failure without network calls.
+- Files changed:
+  - `app/main.py`
+  - `app/openrouter_client.py`
+  - `tests/test_analyze.py`
+  - `docs/NEXT_STEPS.md`
+  - `docs/NIGHTLY_LOG.md`
+- Risks/limitations:
+  - Fallback currently masks detailed provider errors from API clients; explicit route-level HTTP error mapping is still pending.
+  - OpenRouter path currently only replaces `summary`; structured fields still come from deterministic logic.
+  - Sanity check used `python3 -m compileall app tests` because pytest tooling is not available in this runtime.
+- Next step: Add CI/devcontainer bootstrap so `make smoke` works in fresh environments without manual apt setup (`python3-pip`, `python3.12-venv`).
