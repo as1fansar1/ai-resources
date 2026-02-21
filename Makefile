@@ -14,7 +14,7 @@ bootstrap:
 
 smoke:
 	@if [ -x "$(PYTEST)" ]; then \
-		$(PYTEST) -q tests/test_analyze.py tests/test_openrouter_parser.py; \
+		PYTHONPATH=. $(PYTEST) -q tests/test_analyze.py tests/test_openrouter_parser.py; \
 	else \
 		echo "pytest not available in $(VENV); running compile fallback"; \
 		$(MAKE) smoke-fallback; \
