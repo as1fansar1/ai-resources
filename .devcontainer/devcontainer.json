@@ -1,0 +1,12 @@
+{
+  "name": "Insight2Spec",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y python3-pip python3.12-venv && make bootstrap",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": ".venv/bin/python"
+      }
+    }
+  }
+}

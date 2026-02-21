@@ -117,3 +117,23 @@ Add one entry per nightly run.
   - OpenRouter path currently only replaces `summary`; structured fields still come from deterministic logic.
   - Sanity check used `python3 -m compileall app tests` because pytest tooling is not available in this runtime.
 - Next step: Add CI/devcontainer bootstrap so `make smoke` works in fresh environments without manual apt setup (`python3-pip`, `python3.12-venv`).
+
+- Date: 2026-02-21
+- Built: Added CI and devcontainer bootstrap for repeatable `make smoke` setup: new `requirements.txt`, `Makefile` bootstrap/smoke targets, GitHub Actions smoke workflow with apt prerequisites, and devcontainer post-create bootstrap.
+- Why this step: It was the top-priority item in `NEXT_STEPS.md` and removes manual machine setup friction so nightly validation can be automated and teach a clean build pipeline pattern.
+- Key technical concepts:
+  - Environment bootstrap layering: OS deps (`python3-pip`, `python3.12-venv`) + Python deps (`requirements.txt`).
+  - Single-command developer workflow via `make bootstrap` / `make smoke`.
+  - CI parity with local/devcontainer flow to reduce “works on my machine” drift.
+  - Graceful smoke fallback (`compileall`) when pytest tooling is unavailable.
+- Files changed:
+  - `requirements.txt`
+  - `Makefile`
+  - `.github/workflows/smoke.yml`
+  - `.devcontainer/devcontainer.json`
+  - `docs/NEXT_STEPS.md`
+  - `docs/NIGHTLY_LOG.md`
+- Risks/limitations:
+  - Current runtime still lacks pytest in `.venv`, so local sanity check used `make smoke` fallback path (`python3 -m compileall app tests`).
+  - CI currently installs apt packages directly in workflow; build speed can be improved later with caching or prebuilt images.
+- Next step: Add route-level error mapping for OpenRouter failures (config/request/timeout/parse) so API responses stay explicit and debuggable.
