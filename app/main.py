@@ -5,10 +5,15 @@ from __future__ import annotations
 import os
 from typing import Literal
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
-from app.openrouter_client import OpenRouterClient, OpenRouterError
+from app.openrouter_client import (
+    OpenRouterClient,
+    OpenRouterConfigError,
+    OpenRouterRequestError,
+    OpenRouterTimeoutError,
+)
 from app.openrouter_parser import OpenRouterParseError, extract_assistant_text
 
 
@@ -82,6 +87,44 @@ def _build_openrouter_prompt(payload: AnalyzeRequest) -> str:
     )
 
 
+def _raise_openrouter_http_error(error: Exception) -> None:
+    if isinstance(error, OpenRouterConfigError):
+        raise HTTPException(
+            status_code=500,
+            detail={
+                "code": "openrouter_config_error",
+                "message": str(error),
+            },
+        ) from error
+
+    if isinstance(error, OpenRouterTimeoutError):
+        raise HTTPException(
+            status_code=504,
+            detail={
+                "code": "openrouter_timeout",
+                "message": str(error),
+            },
+        ) from error
+
+    if isinstance(error, OpenRouterRequestError):
+        raise HTTPException(
+            status_code=502,
+            detail={
+                "code": "openrouter_request_error",
+                "message": str(error),
+            },
+        ) from error
+
+    if isinstance(error, OpenRouterParseError):
+        raise HTTPException(
+            status_code=502,
+            detail={
+                "code": "openrouter_parse_error",
+                "message": str(error),
+            },
+        ) from error
+
+
 def _analyze_with_openrouter(payload: AnalyzeRequest) -> AnalyzeResponse:
     client = OpenRouterClient.from_env()
     completion = client.complete_json(
@@ -109,9 +152,8 @@ def create_app() -> FastAPI:
 
         try:
             return _analyze_with_openrouter(payload)
-        except (OpenRouterError, OpenRouterParseError):
-            # Dev-friendly fallback: keep endpoint contract stable even when provider fails.
-            return _build_mock_analysis(payload.feedback)
+        except (OpenRouterConfigError, OpenRouterTimeoutError, OpenRouterRequestError, OpenRouterParseError) as error:
+            _raise_openrouter_http_error(error)
 
     return app
 

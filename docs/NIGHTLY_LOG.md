@@ -137,3 +137,21 @@ Add one entry per nightly run.
   - Current runtime still lacks pytest in `.venv`, so local sanity check used `make smoke` fallback path (`python3 -m compileall app tests`).
   - CI currently installs apt packages directly in workflow; build speed can be improved later with caching or prebuilt images.
 - Next step: Add route-level error mapping for OpenRouter failures (config/request/timeout/parse) so API responses stay explicit and debuggable.
+
+- Date: 2026-02-22
+- Built: Implemented explicit `/analyze` route-level OpenRouter error mapping (config/request/timeout/parse) to structured HTTP errors instead of silent mock fallback; added endpoint tests for config + timeout mappings.
+- Why this step: It was the highest-priority item in `NEXT_STEPS.md` and improves debuggability for API consumers learning production LLM integration patterns.
+- Key technical concepts:
+  - Error taxonomy to HTTP contract mapping (`500` config, `504` timeout, `502` request/parse).
+  - Structured error payloads with stable machine-readable `code` fields.
+  - Fail-fast provider mode behavior (no hidden fallback) to surface integration issues early in dev.
+  - Test isolation with monkeypatched clients to validate error paths without network calls.
+- Files changed:
+  - `app/main.py`
+  - `tests/test_analyze.py`
+  - `docs/NEXT_STEPS.md`
+  - `docs/NIGHTLY_LOG.md`
+- Risks/limitations:
+  - `response_model` still documents only success payloads; OpenAPI error schema coverage is not added yet.
+  - Sanity check used `make smoke` compile fallback because pytest is unavailable in the current runtime environment.
+- Next step: Parse structured OpenRouter output (themes/opportunities/experiments) into first-class response fields instead of mock-derived placeholders.
