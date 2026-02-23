@@ -28,7 +28,21 @@ def test_analyze_openrouter_mode_uses_provider_when_available(monkeypatch) -> No
             return cls()
 
         def complete_json(self, **kwargs):
-            return {"choices": [{"message": {"content": "Provider summary"}}]}
+            return {
+                "choices": [
+                    {
+                        "message": {
+                            "content": (
+                                '{"summary":"Provider summary",'
+                                '"themes":["Reliability Issues"],'
+                                '"opportunities":["Improve incident visibility"],'
+                                '"experiments":["Test proactive error nudges"],'
+                                '"prd_outline":["Problem","Solution"]}'
+                            )
+                        }
+                    }
+                ]
+            }
 
     monkeypatch.setattr("app.main.OpenRouterClient", FakeClient)
 
@@ -39,6 +53,9 @@ def test_analyze_openrouter_mode_uses_provider_when_available(monkeypatch) -> No
     body = response.json()
     assert body["mode"] == "openrouter"
     assert body["summary"] == "Provider summary"
+    assert body["themes"] == ["Reliability Issues"]
+    assert body["opportunities"] == ["Improve incident visibility"]
+    assert body["experiments"] == ["Test proactive error nudges"]
 
 
 def test_analyze_openrouter_mode_returns_explicit_config_error(monkeypatch) -> None:

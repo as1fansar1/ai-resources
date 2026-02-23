@@ -1,6 +1,6 @@
 import pytest
 
-from app.openrouter_parser import OpenRouterParseError, extract_assistant_text
+from app.openrouter_parser import OpenRouterParseError, extract_assistant_text, extract_structured_analysis
 
 
 def test_extract_assistant_text_from_plain_content() -> None:
@@ -68,3 +68,36 @@ def test_extract_assistant_text_raises_when_no_text_found() -> None:
 
     with pytest.raises(OpenRouterParseError):
         extract_assistant_text(payload)
+
+
+def test_extract_structured_analysis_from_json_string() -> None:
+    payload = {
+        "choices": [
+            {
+                "message": {
+                    "content": (
+                        '{"summary":"High-level summary",'
+                        '"themes":["Theme A"],'
+                        '"opportunities":["Opportunity A"],'
+                        '"experiments":["Experiment A"],'
+                        '"prd_outline":["Problem"]}'
+                    )
+                }
+            }
+        ]
+    }
+
+    result = extract_structured_analysis(payload)
+
+    assert result["summary"] == "High-level summary"
+    assert result["themes"] == ["Theme A"]
+    assert result["opportunities"] == ["Opportunity A"]
+    assert result["experiments"] == ["Experiment A"]
+    assert result["prd_outline"] == ["Problem"]
+
+
+def test_extract_structured_analysis_raises_on_invalid_json() -> None:
+    payload = {"choices": [{"message": {"content": "not-json"}}]}
+
+    with pytest.raises(OpenRouterParseError):
+        extract_structured_analysis(payload)

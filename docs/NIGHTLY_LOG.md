@@ -155,3 +155,24 @@ Add one entry per nightly run.
   - `response_model` still documents only success payloads; OpenAPI error schema coverage is not added yet.
   - Sanity check used `make smoke` compile fallback because pytest is unavailable in the current runtime environment.
 - Next step: Parse structured OpenRouter output (themes/opportunities/experiments) into first-class response fields instead of mock-derived placeholders.
+
+- Date: 2026-02-23
+- Built: Replaced OpenRouter-mode mock-derived fields with structured provider parsing by requiring JSON output and mapping `summary/themes/opportunities/experiments/prd_outline` directly into `AnalyzeResponse`; added parser + endpoint tests for structured extraction and invalid JSON handling.
+- Why this step: It was the highest-priority item in `NEXT_STEPS.md` and turns `/analyze` into a truer LLM-integration example (not just LLM summary + deterministic placeholders), which is more educational for AI engineering workflows.
+- Key technical concepts:
+  - Prompt-contract pairing: the route now requests strict JSON with explicit fields to reduce downstream ambiguity.
+  - Structured output validation: parser enforces non-empty summary and list-string contracts with explicit parse errors.
+  - Provider-contract mapping: openrouter mode now returns provider-derived insight fields instead of reusing deterministic mock generation.
+  - Defensive parsing supports both raw JSON and fenced ```json blocks.
+- Files changed:
+  - `app/openrouter_parser.py`
+  - `app/main.py`
+  - `tests/test_openrouter_parser.py`
+  - `tests/test_analyze.py`
+  - `docs/NEXT_STEPS.md`
+  - `docs/NIGHTLY_LOG.md`
+- Risks/limitations:
+  - Strict JSON expectation can still fail if model drifts; currently this surfaces as `openrouter_parse_error` rather than auto-retry/repair.
+  - `prd_outline` remains optional (empty list allowed) to avoid overfailing on partial model outputs.
+  - Sanity check used `make smoke` compile fallback (`python3 -m compileall app tests`) because pytest is unavailable in this runtime environment.
+- Next step: Add a minimal README quickstart for local and devcontainer workflows (mode flags, smoke command, env vars).

@@ -14,7 +14,7 @@ from app.openrouter_client import (
     OpenRouterRequestError,
     OpenRouterTimeoutError,
 )
-from app.openrouter_parser import OpenRouterParseError, extract_assistant_text
+from app.openrouter_parser import OpenRouterParseError, extract_structured_analysis
 
 
 class AnalyzeRequest(BaseModel):
@@ -82,7 +82,9 @@ def _build_openrouter_prompt(payload: AnalyzeRequest) -> str:
     context = f"\nContext: {payload.context}" if payload.context else ""
     feedback_lines = "\n".join(f"- {item}" for item in payload.feedback)
     return (
-        "Summarize these feedback notes and return concise plain text with top insights."
+        "Analyze the feedback and return ONLY valid JSON with this shape: "
+        '{"summary": string, "themes": string[], "opportunities": string[], "experiments": string[], "prd_outline": string[]}. '
+        "Keep each list concise (2-5 items)."
         f"{context}\nFeedback:\n{feedback_lines}"
     )
 
@@ -129,13 +131,19 @@ def _analyze_with_openrouter(payload: AnalyzeRequest) -> AnalyzeResponse:
     client = OpenRouterClient.from_env()
     completion = client.complete_json(
         model=os.getenv("OPENROUTER_MODEL", "openai/gpt-4o-mini"),
-        system_prompt="You are a product analyst. Be concise and concrete.",
+        system_prompt="You are a product analyst. Be concise, concrete, and return strict JSON only.",
         user_prompt=_build_openrouter_prompt(payload),
     )
-    summary = extract_assistant_text(completion)
+    structured = extract_structured_analysis(completion)
 
-    result = _build_mock_analysis(payload.feedback, mode="openrouter")
-    return result.model_copy(update={"summary": summary})
+    return AnalyzeResponse(
+        mode="openrouter",
+        summary=structured["summary"],
+        themes=structured["themes"],
+        opportunities=structured["opportunities"],
+        prd_outline=structured["prd_outline"],
+        experiments=structured["experiments"],
+    )
 
 
 def create_app() -> FastAPI:
