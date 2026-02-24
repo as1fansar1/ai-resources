@@ -176,3 +176,20 @@ Add one entry per nightly run.
   - `prd_outline` remains optional (empty list allowed) to avoid overfailing on partial model outputs.
   - Sanity check used `make smoke` compile fallback (`python3 -m compileall app tests`) because pytest is unavailable in this runtime environment.
 - Next step: Add a minimal README quickstart for local and devcontainer workflows (mode flags, smoke command, env vars).
+
+- Date: 2026-02-24
+- Built: Added a minimal `README.md` quickstart covering local and devcontainer workflows, analyze mode flags, required env vars, and the standard smoke-check command.
+- Why this step: It was the highest-priority item in `NEXT_STEPS.md` and improves onboarding by making the run/test loop explicit for both local and containerized development.
+- Key technical concepts:
+  - Developer-experience documentation as part of shippable infrastructure.
+  - Environment-driven behavior toggles (`INSIGHT2SPEC_ANALYZE_MODE`) for safe mock-vs-live LLM workflows.
+  - Operational hygiene with a single pre-commit/nightly sanity command (`make smoke`).
+  - Local/devcontainer parity to reduce setup drift.
+- Files changed:
+  - `README.md`
+  - `docs/NEXT_STEPS.md`
+  - `docs/NIGHTLY_LOG.md`
+- Risks/limitations:
+  - Smoke checks still use compile fallback in this runtime because pytest is unavailable in `.venv`.
+  - README documents API usage but does not yet include concrete curl request/response examples.
+- Next step: Add OpenAPI error response docs for `/analyze` (codes + error payload schema) so client handling is contract-driven.
