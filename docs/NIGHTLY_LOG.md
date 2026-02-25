@@ -193,3 +193,21 @@ Add one entry per nightly run.
   - Smoke checks still use compile fallback in this runtime because pytest is unavailable in `.venv`.
   - README documents API usage but does not yet include concrete curl request/response examples.
 - Next step: Add OpenAPI error response docs for `/analyze` (codes + error payload schema) so client handling is contract-driven.
+
+- Date: 2026-02-25
+- Built: Added explicit OpenAPI error-response documentation for `/analyze` by introducing typed error payload models (`ErrorDetail`, `ErrorResponse`) and wiring `responses` metadata for `500`, `502`, and `504`; added an OpenAPI contract test to lock this behavior.
+- Why this step: It was the highest-priority item in `NEXT_STEPS.md` and makes client-side error handling contract-driven instead of inference-based, which is a core API engineering practice.
+- Key technical concepts:
+  - FastAPI `responses` route metadata for documented non-2xx outcomes.
+  - Shared Pydantic error schema reuse to keep runtime payloads and OpenAPI docs aligned.
+  - Contract testing against `/openapi.json` to catch accidental doc regressions.
+  - Machine-readable error code pattern for robust client branching.
+- Files changed:
+  - `app/main.py`
+  - `tests/test_analyze.py`
+  - `docs/NEXT_STEPS.md`
+  - `docs/NIGHTLY_LOG.md`
+- Risks/limitations:
+  - The docs currently specify status-level descriptions and shared payload shape, but not per-code enum constraints for `detail.code`.
+  - Sanity check still relies on compile fallback because pytest tooling is unavailable in this runtime.
+- Next step: Add a lightweight prompt/response contract test for OpenRouter mode to detect schema drift early (missing keys, empty arrays, non-JSON output).

@@ -88,3 +88,17 @@ def test_analyze_openrouter_mode_returns_explicit_timeout_error(monkeypatch) -> 
 
     assert response.status_code == 504
     assert response.json()["detail"]["code"] == "openrouter_timeout"
+
+
+def test_analyze_openapi_documents_error_responses() -> None:
+    client = TestClient(create_app())
+
+    openapi = client.get("/openapi.json").json()
+    responses = openapi["paths"]["/analyze"]["post"]["responses"]
+
+    assert responses["500"]["description"] == "OpenRouter is misconfigured (for example missing API key)."
+    assert responses["502"]["description"] == "OpenRouter request or output parsing failed."
+    assert responses["504"]["description"] == "OpenRouter timed out before returning a completion."
+
+    error_schema_ref = responses["500"]["content"]["application/json"]["schema"]["$ref"]
+    assert error_schema_ref == "#/components/schemas/ErrorResponse"

@@ -31,6 +31,31 @@ class AnalyzeResponse(BaseModel):
     experiments: list[str]
 
 
+class ErrorDetail(BaseModel):
+    code: str = Field(..., description="Stable machine-readable error code")
+    message: str = Field(..., description="Human-readable error message")
+
+
+class ErrorResponse(BaseModel):
+    detail: ErrorDetail
+
+
+_ANALYZE_ERROR_RESPONSES = {
+    500: {
+        "model": ErrorResponse,
+        "description": "OpenRouter is misconfigured (for example missing API key).",
+    },
+    502: {
+        "model": ErrorResponse,
+        "description": "OpenRouter request or output parsing failed.",
+    },
+    504: {
+        "model": ErrorResponse,
+        "description": "OpenRouter timed out before returning a completion.",
+    },
+}
+
+
 _THEME_KEYWORDS: dict[str, tuple[str, ...]] = {
     "Onboarding Friction": ("onboard", "setup", "signup", "start"),
     "Reliability Issues": ("crash", "bug", "error", "slow", "latency", "fail"),
@@ -153,7 +178,7 @@ def create_app() -> FastAPI:
     def health() -> dict[str, str]:
         return {"status": "ok", "service": "insight2spec"}
 
-    @app.post("/analyze", response_model=AnalyzeResponse)
+    @app.post("/analyze", response_model=AnalyzeResponse, responses=_ANALYZE_ERROR_RESPONSES)
     def analyze(payload: AnalyzeRequest) -> AnalyzeResponse:
         if os.getenv("INSIGHT2SPEC_ANALYZE_MODE", "mock").lower() != "openrouter":
             return _build_mock_analysis(payload.feedback)
