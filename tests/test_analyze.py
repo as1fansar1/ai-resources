@@ -1,5 +1,6 @@
 import os
 
+import pytest
 from fastapi.testclient import TestClient
 
 from app.main import create_app
@@ -88,6 +89,38 @@ def test_analyze_openrouter_mode_returns_explicit_timeout_error(monkeypatch) -> 
 
     assert response.status_code == 504
     assert response.json()["detail"]["code"] == "openrouter_timeout"
+
+
+@pytest.mark.parametrize(
+    "provider_content",
+    [
+        # Missing required key (schema drift)
+        '{"summary":"Provider summary","themes":["Reliability Issues"],"experiments":["Test proactive error nudges"],"prd_outline":["Problem"]}',
+        # Empty required array (invalid contract)
+        '{"summary":"Provider summary","themes":[],"opportunities":["Improve incident visibility"],"experiments":["Test proactive error nudges"],"prd_outline":["Problem"]}',
+        # Non-JSON output (model drift)
+        "Here is your analysis: reliability is poor.",
+    ],
+)
+def test_analyze_openrouter_mode_rejects_contract_drift(monkeypatch, provider_content: str) -> None:
+    monkeypatch.setenv("INSIGHT2SPEC_ANALYZE_MODE", "openrouter")
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+
+    class DriftClient:
+        @classmethod
+        def from_env(cls):
+            return cls()
+
+        def complete_json(self, **kwargs):
+            return {"choices": [{"message": {"content": provider_content}}]}
+
+    monkeypatch.setattr("app.main.OpenRouterClient", DriftClient)
+
+    client = TestClient(create_app())
+    response = client.post("/analyze", json={"feedback": ["app crashes often"]})
+
+    assert response.status_code == 502
+    assert response.json()["detail"]["code"] == "openrouter_parse_error"
 
 
 def test_analyze_openapi_documents_error_responses() -> None:

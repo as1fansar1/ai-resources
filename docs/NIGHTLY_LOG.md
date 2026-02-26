@@ -211,3 +211,20 @@ Add one entry per nightly run.
   - The docs currently specify status-level descriptions and shared payload shape, but not per-code enum constraints for `detail.code`.
   - Sanity check still relies on compile fallback because pytest tooling is unavailable in this runtime.
 - Next step: Add a lightweight prompt/response contract test for OpenRouter mode to detect schema drift early (missing keys, empty arrays, non-JSON output).
+
+- Date: 2026-02-26
+- Built: Added a lightweight OpenRouter contract-drift test in `/analyze` route tests using parametrized malformed provider outputs (missing required keys, empty required arrays, and non-JSON text) and asserting a stable `502 openrouter_parse_error` response.
+- Why this step: It was the highest-priority item in `NEXT_STEPS.md` and directly teaches a production AI pattern: protect downstream APIs from model/schema drift with explicit contract tests.
+- Key technical concepts:
+  - Contract testing at the API boundary (provider output → route response) instead of parser-only unit checks.
+  - `pytest.mark.parametrize` for compact coverage of multiple drift classes.
+  - Stable machine-readable error semantics (`openrouter_parse_error`) for client reliability.
+  - Failure-mode simulation via monkeypatched OpenRouter client (no live network dependency).
+- Files changed:
+  - `tests/test_analyze.py`
+  - `docs/NIGHTLY_LOG.md`
+  - `docs/NEXT_STEPS.md`
+- Risks/limitations:
+  - Contract tests currently validate malformed `message.content` text payloads, not deeper transport-level shape changes (e.g., missing `choices` object), which remain covered mainly in parser tests.
+  - Local verification required bootstrapping `.venv` dependencies in this environment before pytest could run.
+- Next step: Add a tiny curl-based API usage section (health + analyze examples) to README so first-time users can manually verify outputs quickly.
