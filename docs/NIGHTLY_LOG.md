@@ -228,3 +228,19 @@ Add one entry per nightly run.
   - Contract tests currently validate malformed `message.content` text payloads, not deeper transport-level shape changes (e.g., missing `choices` object), which remain covered mainly in parser tests.
   - Local verification required bootstrapping `.venv` dependencies in this environment before pytest could run.
 - Next step: Add a tiny curl-based API usage section (health + analyze examples) to README so first-time users can manually verify outputs quickly.
+
+- Date: 2026-02-27
+- Built: Added a compact README "Quick API Check (curl)" section with copy/paste health and analyze commands (including a sample feedback payload) plus expected output checks.
+- Why this step: It was the highest-priority item in `NEXT_STEPS.md` and gives first-time users a zero-guess way to manually verify the API contract before deeper integration work.
+- Key technical concepts:
+  - API smoke validation via raw HTTP (`curl`) independent of test frameworks.
+  - Contract-oriented manual checks (`summary` non-empty + expected list fields) for fast confidence.
+  - Developer onboarding optimization by reducing setup ambiguity.
+- Files changed:
+  - `README.md`
+  - `docs/NEXT_STEPS.md`
+  - `docs/NIGHTLY_LOG.md`
+- Risks/limitations:
+  - Examples currently use `jq` for pretty output; users without `jq` can still run commands but output readability is lower.
+  - README still lacks concrete 500/502/504 response-body examples for client error handling flows.
+- Next step: Add example error payloads for `/analyze` in README (500/502/504) so client-side retry and UX flows can be implemented confidently.

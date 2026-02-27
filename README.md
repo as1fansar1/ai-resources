@@ -48,6 +48,29 @@ export INSIGHT2SPEC_ANALYZE_MODE=openrouter
 - `OPENROUTER_MODEL` — optional model override (default: `openai/gpt-4o-mini`)
 - `OPENROUTER_TIMEOUT_SECONDS` — optional request timeout override
 
+## Quick API Check (curl)
+
+After starting the server (`PYTHONPATH=. .venv/bin/uvicorn app.main:app --reload`), run:
+
+```bash
+# 1) Health
+curl -s http://127.0.0.1:8000/health | jq
+
+# 2) Analyze (default mock mode)
+curl -s -X POST http://127.0.0.1:8000/analyze \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "feedback": [
+      "Search is slow when catalog size grows",
+      "Users want saved filters for repeat workflows"
+    ]
+  }' | jq
+```
+
+Expected quick checks:
+- `/health` returns `{ "status": "ok" }`
+- `/analyze` returns non-empty `summary` plus arrays for `themes`, `opportunities`, and `experiments`
+
 ## Smoke Command
 
 Use this before commits/nightly changes:
