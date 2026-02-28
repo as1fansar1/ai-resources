@@ -71,6 +71,71 @@ Expected quick checks:
 - `/health` returns `{ "status": "ok" }`
 - `/analyze` returns non-empty `summary` plus arrays for `themes`, `opportunities`, and `experiments`
 
+### `/analyze` Error Payload Examples (OpenRouter mode)
+
+All `/analyze` failures use the same shape:
+
+```json
+{
+  "detail": {
+    "code": "machine_readable_code",
+    "message": "Human-readable explanation"
+  }
+}
+```
+
+#### `500 openrouter_config_error`
+
+When OpenRouter mode is enabled but required configuration is missing (for example, no `OPENROUTER_API_KEY`):
+
+```json
+{
+  "detail": {
+    "code": "openrouter_config_error",
+    "message": "OpenRouter API key is not configured"
+  }
+}
+```
+
+#### `502 openrouter_request_error`
+
+When the upstream provider returns a non-timeout request failure:
+
+```json
+{
+  "detail": {
+    "code": "openrouter_request_error",
+    "message": "OpenRouter request failed: <provider error>"
+  }
+}
+```
+
+#### `502 openrouter_parse_error`
+
+When provider output does not satisfy the expected JSON contract:
+
+```json
+{
+  "detail": {
+    "code": "openrouter_parse_error",
+    "message": "Missing or invalid 'summary' in structured response"
+  }
+}
+```
+
+#### `504 openrouter_timeout`
+
+When the OpenRouter request exceeds `OPENROUTER_TIMEOUT_SECONDS`:
+
+```json
+{
+  "detail": {
+    "code": "openrouter_timeout",
+    "message": "OpenRouter request timed out"
+  }
+}
+```
+
 ## Smoke Command
 
 Use this before commits/nightly changes:

@@ -244,3 +244,19 @@ Add one entry per nightly run.
   - Examples currently use `jq` for pretty output; users without `jq` can still run commands but output readability is lower.
   - README still lacks concrete 500/502/504 response-body examples for client error handling flows.
 - Next step: Add example error payloads for `/analyze` in README (500/502/504) so client-side retry and UX flows can be implemented confidently.
+
+- Date: 2026-02-28
+- Built: Added a dedicated README section with concrete `/analyze` OpenRouter-mode error payload examples for `500 openrouter_config_error`, `502 openrouter_request_error`, `502 openrouter_parse_error`, and `504 openrouter_timeout`.
+- Why this step: It was the top-priority item in `docs/NEXT_STEPS.md` and directly improves client implementation confidence for retry logic and user-facing error UX.
+- Key technical concepts:
+  - Stable error envelope design (`detail.code` + `detail.message`) for machine branching and human diagnostics.
+  - Explicit status-to-error mapping for provider-backed APIs (`500` config, `502` upstream/request/parse, `504` timeout).
+  - Documentation-as-contract: example payloads reduce ambiguity before frontend/client integration.
+- Files changed:
+  - `README.md`
+  - `docs/NEXT_STEPS.md`
+  - `docs/NIGHTLY_LOG.md`
+- Risks/limitations:
+  - README examples show representative messages; exact upstream text for `openrouter_request_error` can vary.
+  - No runnable non-`jq` shell wrapper yet for manual smoke checks; this remains queued in `NEXT_STEPS.md`.
+- Next step: Add parser-level tests for malformed top-level OpenRouter envelopes (`choices` missing/wrong type) to complement route-level drift tests.
