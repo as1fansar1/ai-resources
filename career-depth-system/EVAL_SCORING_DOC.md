@@ -131,8 +131,8 @@ Do the claims stay proportional to the evidence, or does it overclaim?
 With the 6 core dimensions, max score = **30**.
 
 ### Decision thresholds
-- **27–30** → **Publish**
-- **22–26** → **Publish with edits**
+- **25–30** → **Publish**
+- **22–24** → **Publish with edits**
 - **21 or below** → **Reject / require review**
 
 ---
