@@ -4,6 +4,7 @@ AI research reports generated with Hermes.
 
 ## Reports
 
+- [Top AI tools and workflows — 2026-06-03](./2026-06-03-top-ai-tools-workflows-last-30-days.md) — rolling 30-day AI tools/workflows report: Claude Code routines, Codex goals, GitHub MCP, browser agents, Runway MCP, n8n, and research workflows.
 - [GitHub popular repositories lately — 2026-05-18](./2026-05-18-github-popular-lately.md) — quick scan of recent GitHub momentum, agent-skill infrastructure, design/video pipelines, and remix ideas.
 - [GitHub trending repositories and remix ideas — 2026-05-17](./2026-05-17-github-trending-remix-ideas.md) — ranked GitHub Trending review with AI-agent, skills, media, finance, and developer-tool remix opportunities.
 - [Top practical use cases for Hermes Agent — 2026-05-12](./2026-05-12-top-hermes-agent-use-cases.md) — ranked deployable use cases for Hermes Agent.
