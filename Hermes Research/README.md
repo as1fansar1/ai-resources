@@ -4,6 +4,7 @@ AI research reports generated with Hermes.
 
 ## Reports
 
+- [Top AI tools and workflows — 2026-06-29](./2026-06-29-top-ai-tools-workflows-last-30-days.md) — rolling 30-day report: Codex Record & Replay, Claude Code dynamic workflows, MCP/skills discovery, OpenKnowledge, Perplexity Brain, creative agents, n8n, model routing, and local/open coding agents.
 - [Top GitHub AI repositories — rolling 30-day window](./2026-06-03-top-github-ai-repos.md) — research window: 2026-05-04 to 2026-06-03
 - [Top AI tools and workflows — 2026-06-03](./2026-06-03-top-ai-tools-workflows-last-30-days.md) — rolling 30-day AI tools/workflows report: Claude Code routines, Codex goals, GitHub MCP, browser agents, Runway MCP, n8n, and research workflows.
 - [GitHub popular repositories lately — 2026-05-18](./2026-05-18-github-popular-lately.md) — quick scan of recent GitHub momentum, agent-skill infrastructure, design/video pipelines, and remix ideas.
