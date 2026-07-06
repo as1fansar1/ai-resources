@@ -1,5 +1,6 @@
 # Hermes Research
 
+- [2026-07-06 — GitHub trending repos + product remixes](2026-07-06-github-trending-product-remix.md)
 AI research reports generated with Hermes.
 
 ## Reports
