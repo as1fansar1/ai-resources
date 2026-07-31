@@ -5,6 +5,7 @@ AI research reports generated with Hermes.
 
 ## Reports
 
+- [Top AI tools and workflows — 2026-07-31](./2026-07-31-top-ai-tools-workflows-last-30-days.md) — rolling 30-day report: GPT-5.6 routing, harness-centric coding agents, Claude Opus 5, Gemini Managed Agents, Notion Workers, Copilot Cowork, creative model routing, local models, and agent security.
 - [Top AI tools and workflows — 2026-07-03](./2026-07-03-top-ai-tools-workflows-last-30-days.md) — rolling 30-day report: Claude Sonnet 5/Tag, Browser Use CLI 3.0, Vercel skills, OpenAI memory/model previews, Notion External Agents, Perplexity Brain, Adobe/Runway creative agents, HF Serge, and browser QA workflows.
 - [Top AI tools and workflows — 2026-06-30](./2026-06-30-top-ai-tools-workflows-last-30-days.md) — rolling 30-day report: Codex Remote/plugins, Claude Code dynamic workflows, multi-agent ADEs, browser agents, MCP discovery/security, n8n automation, and local coding models.
 - [GitHub trending repos + product remixes — 2026-06-29](./2026-06-29-github-trending-product-remix.md) — rolling 7-day GitHub trending scan with top repos, local-first/BYOK creator-tool remix ideas, and top product bets.
