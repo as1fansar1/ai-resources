@@ -1,62 +1,58 @@
-# Insight2Spec API
+# AI Resources
 
-Minimal FastAPI service for turning user feedback into product insights.
+Research, experiments, and practical notes on AI agents, tools, models, and emerging workflows.
 
-## Quickstart (Local)
+This repository is where I document what I am learning while building agentic systems, evaluating AI-enabled product workflows, and experimenting with Hermes Agent.
+
+## What's inside
+
+### [Hermes Research](./Hermes%20Research/)
+
+Recurring research reports on:
+
+- New AI tools and agent workflows
+- GitHub projects with practical product potential
+- Local-first and BYOK creator tools
+- Agent skills, orchestration, evaluation, and security
+- Product remix ideas based on emerging open-source projects
+
+### [AI Business Workflows](./AI%20Business%20Workflows/)
+
+A collection of practical AI and automation workflow ideas organized by publication date.
+
+### [Learning](./learning/)
+
+Hands-on learning material covering prompt contracts, structured outputs, acceptance criteria, failure modes, and production-minded AI product design.
+
+### Insight2Spec API
+
+A minimal FastAPI service that turns unstructured user feedback into structured product insights, including themes, opportunities, and experiments.
+
+The API supports two modes:
+
+- `mock` — deterministic local output with no LLM calls
+- `openrouter` — live structured analysis through OpenRouter
+
+## Run Insight2Spec locally
 
 ```bash
-cd /home/ubuntu/.openclaw/workspace/projects/ai-resources
 make bootstrap
 make smoke
-```
-
-Run the API:
-
-```bash
 PYTHONPATH=. .venv/bin/uvicorn app.main:app --reload
 ```
 
-## Quickstart (Dev Container)
-
-1. Open this folder in VS Code.
-2. Run **Dev Containers: Reopen in Container**.
-3. Wait for post-create setup (`python3-pip`, `python3.12-venv`, `make bootstrap`).
-4. Run:
-
-```bash
-make smoke
-PYTHONPATH=. .venv/bin/uvicorn app.main:app --reload
-```
-
-## Analyze Modes
-
-`/analyze` supports two modes via `INSIGHT2SPEC_ANALYZE_MODE`:
-
-- `mock` (default): deterministic local output, no LLM calls.
-- `openrouter`: live LLM call through OpenRouter.
-
-Example:
-
-```bash
-export INSIGHT2SPEC_ANALYZE_MODE=openrouter
-```
-
-## Environment Variables
+### Environment variables
 
 - `INSIGHT2SPEC_ANALYZE_MODE` — `mock` or `openrouter` (default: `mock`)
 - `OPENROUTER_API_KEY` — required for `openrouter` mode
-- `OPENROUTER_MODEL` — optional model override (default: `openai/gpt-4o-mini`)
-- `OPENROUTER_TIMEOUT_SECONDS` — optional request timeout override
+- `OPENROUTER_MODEL` — optional model override
+- `OPENROUTER_TIMEOUT_SECONDS` — optional request timeout
 
-## Quick API Check (curl)
-
-After starting the server (`PYTHONPATH=. .venv/bin/uvicorn app.main:app --reload`), run:
+### Quick API check
 
 ```bash
-# 1) Health
 curl -s http://127.0.0.1:8000/health | jq
 
-# 2) Analyze (default mock mode)
 curl -s -X POST http://127.0.0.1:8000/analyze \
   -H 'Content-Type: application/json' \
   -d '{
@@ -67,81 +63,8 @@ curl -s -X POST http://127.0.0.1:8000/analyze \
   }' | jq
 ```
 
-Expected quick checks:
-- `/health` returns `{ "status": "ok" }`
-- `/analyze` returns non-empty `summary` plus arrays for `themes`, `opportunities`, and `experiments`
+All API failures return a consistent machine-readable error contract. Run `make smoke` before committing changes.
 
-### `/analyze` Error Payload Examples (OpenRouter mode)
+## Research cadence
 
-All `/analyze` failures use the same shape:
-
-```json
-{
-  "detail": {
-    "code": "machine_readable_code",
-    "message": "Human-readable explanation"
-  }
-}
-```
-
-#### `500 openrouter_config_error`
-
-When OpenRouter mode is enabled but required configuration is missing (for example, no `OPENROUTER_API_KEY`):
-
-```json
-{
-  "detail": {
-    "code": "openrouter_config_error",
-    "message": "OpenRouter API key is not configured"
-  }
-}
-```
-
-#### `502 openrouter_request_error`
-
-When the upstream provider returns a non-timeout request failure:
-
-```json
-{
-  "detail": {
-    "code": "openrouter_request_error",
-    "message": "OpenRouter request failed: <provider error>"
-  }
-}
-```
-
-#### `502 openrouter_parse_error`
-
-When provider output does not satisfy the expected JSON contract:
-
-```json
-{
-  "detail": {
-    "code": "openrouter_parse_error",
-    "message": "Missing or invalid 'summary' in structured response"
-  }
-}
-```
-
-#### `504 openrouter_timeout`
-
-When the OpenRouter request exceeds `OPENROUTER_TIMEOUT_SECONDS`:
-
-```json
-{
-  "detail": {
-    "code": "openrouter_timeout",
-    "message": "OpenRouter request timed out"
-  }
-}
-```
-
-## Smoke Command
-
-Use this before commits/nightly changes:
-
-```bash
-make smoke
-```
-
-`make smoke` runs targeted tests when pytest is available, otherwise falls back to `python3 -m compileall app tests`.
+The Hermes research reports are published twice each week, on Tuesday and Friday mornings.
