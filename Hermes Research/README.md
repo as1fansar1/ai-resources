@@ -1,5 +1,6 @@
 # Hermes Research
 
+- [2026-08-03 — GitHub trending repos + product remixes](2026-08-03-github-trending-product-remix.md) — rolling 7-day GitHub Trending and Show HN scan with ranked repositories, evidence, local-first/BYOK product remixes, and top build experiments.
 - [2026-07-31 — GitHub trending repos + product remixes](2026-07-31-github-trending-product-remix.md) — rolling 7-day GitHub Trending scan with ranked repositories, evidence, and local-first/BYOK creator-tool product remixes.
 - [2026-07-06 — GitHub trending repos + product remixes](2026-07-06-github-trending-product-remix.md)
 AI research reports generated with Hermes.
