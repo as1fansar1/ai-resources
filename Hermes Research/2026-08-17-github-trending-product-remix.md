@@ -45,10 +45,10 @@ Scores penalize single-source virality, unclear recent activity, demo-only scope
 
 | Rank | Repository | Score | Week signal | Recommendation |
 |---:|---|---:|---|---|
-| 1 | [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness) | 96 | Created Aug 13; ~147.9k★ / 15.1k forks; RC release Aug 17 | **Build around / monitor core** |
+| 1 | [deepseek-ai/deepseek-harness](https://github.com/deepseek-ai/deepseek-harness) | 96 | Created Aug 13; ~147.9k★ / 15.1k forks; RC tag Aug 17 | **Build around / monitor core** |
 | 2 | [cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design) | 91 | GitHub Trending: +15,600 stars this week | **Try now** |
 | 3 | [cactus-compute/needle](https://github.com/cactus-compute/needle) | 91 | +2,950 stars this week; v2.0.5 Aug 15 | **Prototype now** |
-| 4 | [PrimeIntellect-ai/prime-agent](https://github.com/PrimeIntellect-ai/prime-agent) | 89 | +6,435 stars this week; v0.7.2 Aug 17 | **Try in sandbox** |
+| 4 | [PrimeIntellect-ai/prime-agent](https://github.com/PrimeIntellect-ai/prime-agent) | 89 | +6,435 stars this week; v0.7.2 Aug 11 | **Try in sandbox** |
 | 5 | [antirez/h3.c](https://github.com/antirez/h3.c) | 89 | 440 HN points / 98 comments; 2.1k★ | **Prototype on suitable Mac** |
 | 6 | [unslothai/unsloth](https://github.com/unslothai/unsloth) | 89 | +2,645 stars this week; major in-window model release | **Try now** |
 | 7 | [semantica-agi/semantica](https://github.com/semantica-agi/semantica) | 86 | +5,284 stars this week; v0.6.5 Aug 11 | **Deep-dive** |
@@ -66,7 +66,7 @@ Scores penalize single-source virality, unclear recent activity, demo-only scope
 - **Category:** Agent harness / plugin runtime
 - **Score:** 96 = 15 recency + 20 momentum + 13 source diversity + 19 utility + 10 novelty + 10 adoption + 9 strategic fit
 - **Why it is trending:** It compressed an ecosystem-scale agent-harness launch into four days. GitHub API showed **147,902 stars and 15,117 forks** around 12:10 EDT on August 17.
-- **Recent evidence:** Created [August 13](https://github.com/deepseek-ai/deepseek-harness); pushed August 17; [v0.1.0-rc.7](https://github.com/deepseek-ai/deepseek-harness/releases) released August 17 with plugin settings cards, Claude Code/Codex subagent management, durable image attachments, and reliability fixes.
+- **Recent evidence:** Created [August 13](https://github.com/deepseek-ai/deepseek-harness); pushed August 17; [`dsh-v0.1.0-rc.7`](https://github.com/deepseek-ai/deepseek-harness/tree/dsh-v0.1.0-rc.7) tagged August 17 with plugin settings cards, Claude Code/Codex subagent management, durable image attachments, and reliability fixes. GitHub's latest-release API returned 404 because this is a tag, not a published GitHub Release.
 - **Momentum:** ~35k stars/day since creation is extraordinary. Local history measurement found very high in-window churn, though imported/merged history can inflate raw commit counts.
 - **Core primitive:** A local web/TUI agent environment where tools, UI, and behaviors are plugins.
 - **What you can do:** Run the web UI at localhost; install or build plugins; coordinate Codex/Claude Code subagent jobs; expose MCP/ACP workflows without building a harness from scratch.
@@ -103,7 +103,7 @@ Scores penalize single-source virality, unclear recent activity, demo-only scope
 - **Category:** Long-running coding/research agent
 - **Score:** 89
 - **Why it is trending:** GitHub Trending reported **+6,435 stars this week**; API snapshot: **16,819 stars / 1,807 forks**; pushed August 17.
-- **Recent evidence:** v0.7.2 was observed on August 17; local history found 35 in-window commits.
+- **Recent evidence:** [v0.7.2](https://github.com/PrimeIntellect-ai/prime-agent/releases/tag/v0.7.2) was published August 11; local history found 35 in-window commits.
 - **Core primitive:** Persistent sessions and recursive/subagent execution for long-running tasks.
 - **What you can do:** Run daemon-backed coding or research jobs, schedule work, and delegate subtasks while retaining harness state across sessions.
 - **Maturity/license:** MIT; created May 2026; 70 open issues at snapshot. Autonomy expands cost, secret, and tool-permission risk.
@@ -435,10 +435,10 @@ The appendix deliberately exceeds 15 candidates and includes both selected and n
 
 | Candidate | Category | Window evidence | Snapshot / maturity note | Disposition |
 |---|---|---|---|---|
-| deepseek-ai/deepseek-harness | Agent harness | Created Aug 13; RC Aug 17 | 147.9k★ / 15.1k forks; MIT; developer preview | Top 1 |
+| deepseek-ai/deepseek-harness | Agent harness | Created Aug 13; RC tag Aug 17 | 147.9k★ / 15.1k forks; MIT; developer preview | Top 1 |
 | cathrynlavery/diagram-design | Creator/skill | +15,600 stars/week | 20.3k★; MIT | Top 2 |
 | cactus-compute/needle | Tiny local model | +2,950/week; v2.0.5 Aug 15 | 7.0k★; Apache-2.0 | Top 3 |
-| PrimeIntellect-ai/prime-agent | Agent | +6,435/week; v0.7.2 Aug 17 | 16.8k★; MIT | Top 4 |
+| PrimeIntellect-ai/prime-agent | Agent | +6,435/week; v0.7.2 Aug 11 | 16.8k★; MIT | Top 4 |
 | antirez/h3.c | Local media | HN Aug 10: 440 / 98 | 2.1k★; MIT; Apple Silicon | Top 5 |
 | unslothai/unsloth | Local model desktop | +2,645/week; release Aug 14 | 73.1k★; mixed code/UI license boundary | Top 6 |
 | semantica-agi/semantica | Context graph | +5,284/week; v0.6.5 Aug 11 | 8.4k★; MIT | Top 7 |
