@@ -8,6 +8,7 @@ AI research reports generated with Hermes.
 
 ## Reports
 
+- [Top AI tools and workflows — 2026-08-22](./2026-08-22-top-ai-tools-workflows-last-30-days.md) — rolling 30-day report: multi-session coding, event-driven agent loops, supervised browser operations, reusable n8n agents, evidence-preserving research, agent tracing, local multimodal agents, and recurring Hermes operations.
 - [Top AI tools and workflows — 2026-08-17](./2026-08-17-top-ai-tools-workflows-last-30-days.md) — rolling 30-day report: Perplexity Agent API, governed Confluence/Rovo agents, browser automation with action gates, agent tracing, local serving, cross-harness memory, reproducible agent research, and read-only infrastructure agents.
 - [Top AI tools and workflows — 2026-08-11](./2026-08-11-top-ai-tools-workflows-last-30-days.md) — rolling 30-day report: review-gated coding, stateless least-privilege MCP, ChatGPT Work artifacts, Kiro Crew, Claude Opus 5, Prime Agent, prompt-to-n8n automation, human-gated browser errands, and new agent-native open-source tools.
 - [Top AI tools and workflows — 2026-08-07](./2026-08-07-top-ai-tools-workflows-last-30-days.md) — rolling 30-day report: review-gated coding, ChatGPT Work/GPT-5.6 routing, MCP v2, Kiro Crew, Muse Code, local agents, credential-isolated sandboxes, and persistent agent operations.
