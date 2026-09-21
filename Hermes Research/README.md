@@ -1,5 +1,6 @@
 # Hermes Research
 
+- [2026-09-21 — GitHub trending repos + product remixes](2026-09-21-github-trending-product-remix.md) — rolling 7-day multi-source scan with 12 ranked repositories, 34-candidate appendix, 12 local-first/BYOK product remixes, and three concrete build experiments.
 - [2026-09-14 — GitHub trending repos + product remixes](2026-09-14-github-trending-product-remix.md) — rolling 7-day multi-source scan with 12 ranked repositories, 35-candidate appendix, 12 local-first/BYOK product remixes, and three concrete build experiments.
 - [2026-08-24 — GitHub trending repos + product remixes](2026-08-24-github-trending-product-remix.md) — rolling 7-day multi-source scan with 12 ranked repositories, 30-candidate appendix, 11 local-first/BYOK product remixes, and three concrete build experiments.
 - [2026-08-17 — GitHub trending repos + product remixes](2026-08-17-github-trending-product-remix.md) — rolling 7-day multi-source scan with 12 ranked repositories, 35-candidate appendix, local-first/BYOK product remixes, and three concrete build experiments.
